@@ -16,6 +16,7 @@ const Chat = () => {
   const bottomRef = useRef<HTMLDivElement | null>(null)
   const { logout } = useAuth()
   const navigate = useNavigate()
+ //const apiKey = import.meta.env.VITE_API_KEY;
 
   const estimateTokens = (text: string) => {
     const words = text.trim().split(/\s+/).length
@@ -31,11 +32,14 @@ const Chat = () => {
     setLoading(true)
     setTokenCount(prev => prev + estimateTokens(input))
 
+   
+    console.log("API KEY from env:", import.meta.env.VITE_API_KEY)
+
     fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer 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' 
+        'Authorization': 'Bearer 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' 
       },
       body: JSON.stringify({
         model: 'openai/gpt-3.5-turbo',
@@ -49,9 +53,13 @@ const Chat = () => {
         ]
       })
     })
+    
       .then(res => res.json())
       .then(data => {
-        if (data.choices && data.choices.length > 0) {
+  console.log("🟡 Raw response from OpenRouter:", data); // ✅ Add this line
+
+  if (data.choices && data.choices.length > 0) {
+
           const reply = data.choices[0].message.content.trim()
           setMessages(prev => [...prev, { sender: 'bot', text: reply }])
           setTokenCount(prev => prev + estimateTokens(reply))
