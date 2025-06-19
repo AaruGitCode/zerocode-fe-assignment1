@@ -16,7 +16,6 @@ const Chat = () => {
   const bottomRef = useRef<HTMLDivElement | null>(null)
   const { logout } = useAuth()
   const navigate = useNavigate()
- //const apiKey = import.meta.env.VITE_API_KEY;
 
   const estimateTokens = (text: string) => {
     const words = text.trim().split(/\s+/).length
@@ -32,17 +31,12 @@ const Chat = () => {
     setLoading(true)
     setTokenCount(prev => prev + estimateTokens(input))
 
-   
-    console.log("API KEY from env:", import.meta.env.VITE_API_KEY)
-
-    fetch('https://openrouter.ai/api/v1/chat/completions', {
+    fetch('/api/chat', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer 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' 
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: 'openai/gpt-3.5-turbo',
         messages: [
           { role: 'system', content: 'You are a helpful assistant.' },
           ...messages.map(m => ({
@@ -53,13 +47,10 @@ const Chat = () => {
         ]
       })
     })
-    
       .then(res => res.json())
       .then(data => {
-  console.log("🟡 Raw response from OpenRouter:", data); // ✅ Add this line
-
-  if (data.choices && data.choices.length > 0) {
-
+        console.log("🟡 Raw response from OpenRouter proxy:", data)
+        if (data.choices && data.choices.length > 0) {
           const reply = data.choices[0].message.content.trim()
           setMessages(prev => [...prev, { sender: 'bot', text: reply }])
           setTokenCount(prev => prev + estimateTokens(reply))
@@ -143,16 +134,14 @@ const Chat = () => {
         {messages.map((msg, index) => (
           <div
             key={index}
-            className={`max-w-md px-4 py-2 rounded-lg ${
-              msg.sender === 'user'
-                ? 'ml-auto bg-blue-600 text-white'
-                : 'mr-auto bg-gray-300 dark:bg-gray-700'
-            }`}
+            className={`max-w-md px-4 py-2 rounded-lg ${msg.sender === 'user'
+              ? 'ml-auto bg-blue-600 text-white'
+              : 'mr-auto bg-gray-300 dark:bg-gray-700'
+              }`}
           >
             {msg.text}
           </div>
         ))}
-
         {loading && (
           <div className="mr-auto bg-gray-300 dark:bg-gray-700 px-4 py-2 rounded-lg max-w-xs animate-pulse">
             Bot is typing...
