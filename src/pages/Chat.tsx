@@ -35,7 +35,7 @@ const Chat = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer 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' 
+        'Authorization': 'Bearer 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' 
       },
       body: JSON.stringify({
         model: 'openai/gpt-3.5-turbo',
