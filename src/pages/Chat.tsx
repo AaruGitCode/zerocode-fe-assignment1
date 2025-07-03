@@ -82,7 +82,7 @@ const Chat = () => {
   }, [messages, loading])
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+    <div className="flex flex-col min-h-screen max-h-screen overflow-hidden bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
       <ThemeToggle />
       <div className="p-4 bg-white dark:bg-gray-800 shadow flex justify-between items-center">
         <div className="text-xl font-bold">💬 BotTalk</div>
@@ -92,9 +92,9 @@ const Chat = () => {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-2">
+      <div className="flex-1 overflow-y-auto p-4 space-y-2 max-h-[calc(100vh-160px)]">
         {messages.map((msg, index) => (
-          <div key={index} className={`max-w-xs px-4 py-2 rounded-lg ${msg.sender === 'user' ? 'ml-auto bg-blue-600 text-white' : 'mr-auto bg-gray-300 dark:bg-gray-700'}`}>
+          <div key={index} className={`max-w-full sm:max-w-xs px-4 py-2 rounded-lg ${msg.sender === 'user' ? 'ml-auto bg-blue-600 text-white' : 'mr-auto bg-gray-300 dark:bg-gray-700'}`}>
             {msg.text}
           </div>
         ))}
@@ -107,7 +107,7 @@ const Chat = () => {
       </div>
 
       <div className="p-4 bg-white dark:bg-gray-800 border-t border-gray-300 dark:border-gray-700">
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <input
             type="text"
             placeholder="Type your message..."
@@ -124,7 +124,7 @@ const Chat = () => {
           </button>
           <button
             onClick={startVoiceInput}
-            className="bg-yellow-500 text-white px-3 py-2 rounded hover:bg-yellow-600"
+            className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
           >
             🎤
           </button>
