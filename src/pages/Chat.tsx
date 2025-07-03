@@ -85,7 +85,7 @@ const Chat = () => {
     <div className="flex flex-col h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
       <ThemeToggle />
       <div className="p-4 bg-white dark:bg-gray-800 shadow flex justify-between items-center">
-        <div className="text-xl font-bold">💬 Chat with Bot</div>
+        <div className="text-xl font-bold">💬 BotTalk</div>
         <div className="flex gap-2">
           <button onClick={exportChat} className="bg-green-600 text-white px-3 py-1 rounded">Export Chat</button>
           <button onClick={() => { logout(); navigate('/login') }} className="bg-red-600 text-white px-3 py-1 rounded">Logout</button>
