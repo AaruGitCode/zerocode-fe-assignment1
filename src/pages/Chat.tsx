@@ -83,15 +83,19 @@ const Chat = () => {
 
   return (
     <div className="flex flex-col min-h-screen max-h-screen overflow-hidden bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
-      <ThemeToggle />
-      <div className="p-4 bg-white dark:bg-gray-800 shadow flex justify-between items-center">
-        <div className="text-xl font-bold">💬 BotTalk</div>
+      {/* Header Section with ThemeToggle */}
+      <div className="p-4 bg-white dark:bg-gray-800 shadow flex flex-wrap justify-between items-center gap-3 sm:gap-4">
+        <div className="flex items-center gap-3">
+          <div className="text-xl font-bold">💬 BotTalk</div>
+          <ThemeToggle />
+        </div>
         <div className="flex gap-2">
           <button onClick={exportChat} className="bg-green-600 text-white px-3 py-1 rounded">Export Chat</button>
           <button onClick={() => { logout(); navigate('/login') }} className="bg-red-600 text-white px-3 py-1 rounded">Logout</button>
         </div>
       </div>
 
+      {/* Message Display Section */}
       <div className="flex-1 overflow-y-auto p-4 space-y-2 max-h-[calc(100vh-160px)]">
         {messages.map((msg, index) => (
           <div key={index} className={`max-w-full sm:max-w-xs px-4 py-2 rounded-lg ${msg.sender === 'user' ? 'ml-auto bg-blue-600 text-white' : 'mr-auto bg-gray-300 dark:bg-gray-700'}`}>
@@ -106,6 +110,7 @@ const Chat = () => {
         <div ref={bottomRef} />
       </div>
 
+      {/* Input Section */}
       <div className="p-4 bg-white dark:bg-gray-800 border-t border-gray-300 dark:border-gray-700">
         <div className="flex flex-col sm:flex-row gap-2">
           <input
